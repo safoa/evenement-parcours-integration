@@ -2,6 +2,7 @@ package fr.softeam.evenementparcoursintegration.ressource;
 
 
 import fr.softeam.evenementparcoursintegration.dto.EvenementGenerique;
+import fr.softeam.evenementparcoursintegration.dto.EvenementRappel;
 import fr.softeam.evenementparcoursintegration.dto.Personne;
 import fr.softeam.evenementparcoursintegration.exception.EvenementParcoursIntegrationException;
 import fr.softeam.evenementparcoursintegration.service.EvenementParcoursIntegrationService;
@@ -36,7 +37,7 @@ public class EvenementParcoursIntegrationRessource {
     }
 
     @GetMapping(path = "/evenement/rappel")
-    public List<EvenementGenerique> getEvenementARappele() throws EvenementParcoursIntegrationException {
+    public List<EvenementRappel> getEvenementARappele() throws EvenementParcoursIntegrationException {
         return evenementParcoursIntegrationService.getEvenementsARappele();
     }
 

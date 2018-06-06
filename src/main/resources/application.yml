@@ -8,6 +8,9 @@ evenement-parcours-integration:
     type-recurrence:
     valeur-recurrence:
     nb_jour_avant_rappel: 15
+    destinataire-groupe:
+      - rh
+      - commerce
   - nom: Entretien etonnement
     description: Rh fait un mail à direction, manager proximité, commercial
     type-declancheur: m
@@ -17,6 +20,9 @@ evenement-parcours-integration:
     type-recurrence:
     valeur-recurrence:
     nb_jour_avant_rappel: 15
+    destinataire-groupe:
+      - rh
+      - commerce
   - nom: Point fin de période d'éssai
     description: Manager doit déterminer les objectifs en fonction du point de mission
     type-declancheur: m
@@ -26,3 +32,6 @@ evenement-parcours-integration:
     type-recurrence:
     valeur-recurrence:
     nb_jour_avant_rappel: 15
+    destinataire-groupe:
+      - rh
+      - commerce

@@ -12,12 +12,12 @@ public class EvenementParcoursIntegration {
     private String typeRecurrence;
     private Integer valeurRecurrence;
     private Integer nbJourAvantRappel;
-    private List<String> roles;
+    private List<String> destinataireGroupe;
 
     public EvenementParcoursIntegration() {
     }
 
-    public EvenementParcoursIntegration(String nom, String description, String typeDeclancheur, Integer valeurDeclancheur, String type, boolean cycle, String typeRecurrence, Integer valeurRecurrence, Integer nbJourAvantRappel, List<String> roles) {
+    public EvenementParcoursIntegration(String nom, String description, String typeDeclancheur, Integer valeurDeclancheur, String type, boolean cycle, String typeRecurrence, Integer valeurRecurrence, Integer nbJourAvantRappel, List<String> destinataireGroupe) {
         this.nom = nom;
         this.description = description;
         this.typeDeclancheur = typeDeclancheur;
@@ -27,7 +27,7 @@ public class EvenementParcoursIntegration {
         this.typeRecurrence = typeRecurrence;
         this.valeurRecurrence = valeurRecurrence;
         this.nbJourAvantRappel = nbJourAvantRappel;
-        this.roles = roles;
+        this.destinataireGroupe = destinataireGroupe;
     }
 
     public String getNom() {
@@ -102,12 +102,12 @@ public class EvenementParcoursIntegration {
         this.nbJourAvantRappel = nbJourAvantRappel;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public List<String> getDestinataireGroupe() {
+        return destinataireGroupe;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setDestinataireGroupe(List<String> destinataireGroupe) {
+        this.destinataireGroupe = destinataireGroupe;
     }
 
 

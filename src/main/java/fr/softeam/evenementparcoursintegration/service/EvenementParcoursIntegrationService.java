@@ -5,6 +5,7 @@ import fr.softeam.evenementparcoursintegration.dao.EvenementPersonneParcoursInte
 import fr.softeam.evenementparcoursintegration.dto.EvenementGenerique;
 import fr.softeam.evenementparcoursintegration.dto.EvenementParcoursIntegration;
 import fr.softeam.evenementparcoursintegration.dto.EvenementPersonneParcoursIntegration;
+import fr.softeam.evenementparcoursintegration.dto.EvenementRappel;
 import fr.softeam.evenementparcoursintegration.exception.EvenementParcoursIntegrationException;
 import org.springframework.stereotype.Service;
 
@@ -167,19 +168,32 @@ public class EvenementParcoursIntegrationService {
     /**
      * Permet de récupérer l'ensemble des évènements generiques pour lesquels il faut envoyer un rappel
      */
-    public List<EvenementGenerique> getEvenementsARappele()throws EvenementParcoursIntegrationException{
+    public List<EvenementRappel> getEvenementsARappele()throws EvenementParcoursIntegrationException{
         List<EvenementParcoursIntegration> evenementParcoursIntegrationList = yamlConfigEvenementParcoursIntegration.getEvenementParcoursIntegration();
         Map<String, Integer> evenementParcoursIntegrationMap =
                 evenementParcoursIntegrationList.stream()
                 .collect(Collectors.toMap(EvenementParcoursIntegration::getNom,EvenementParcoursIntegration::getNbJourAvantRappel));
 
         List<EvenementGenerique> evenementGeneriqueList = recuperationEvenementsGeneriqueTypeParcoursIntegration();
-        return evenementGeneriqueList.stream().filter(
+        List<EvenementGenerique> evenementGeneriqueARapeller = evenementGeneriqueList.stream().filter(
                 e -> (LocalDate.parse(
                         e.getDateEvenement(),
                         DateTimeFormatter.ofPattern("dd/MM/yyyy")).plusDays(-evenementParcoursIntegrationMap.get(e.getNom())).isEqual(LocalDate.now()
                 ))
         ).collect(Collectors.toList());
+        List<EvenementRappel> listeResultat = new ArrayList<>();
+        for (EvenementGenerique evenementGenerique:evenementGeneriqueARapeller
+             ) {
+           Optional<EvenementParcoursIntegration> evenementParcoursIntegration =
+                   evenementParcoursIntegrationList.stream().filter(e -> e.getNom().equals(evenementGenerique.getNom())).findFirst();
+           if(evenementParcoursIntegration.isPresent()){
+               EvenementRappel evenementRappel = new EvenementRappel();
+               evenementRappel.setInformationEvenement(evenementGenerique);
+               evenementRappel.setDestinataires(evenementParcoursIntegration.get().getDestinataireGroupe());
+               listeResultat.add(evenementRappel);
+           }
+        }
+        return listeResultat;
     }
 
     /**
@@ -191,6 +205,8 @@ public class EvenementParcoursIntegrationService {
     public List<EvenementGenerique> getListEvenementByIdPersonne(String idPersonne)throws EvenementParcoursIntegrationException {
         Map<String, List<EvenementGenerique>> evenementGeneriqueList = new HashMap<>();
         evenementGeneriqueList = recuperationEvenementsParcoursIntegrationPersonne();
+        List<EvenementParcoursIntegration> evenementParcoursIntegrationList =
+                yamlConfigEvenementParcoursIntegration.getEvenementParcoursIntegration();
         return evenementGeneriqueList.get(idPersonne);
     }
 

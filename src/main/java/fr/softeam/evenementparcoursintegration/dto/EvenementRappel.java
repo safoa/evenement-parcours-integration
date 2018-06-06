@@ -1,0 +1,28 @@
+package fr.softeam.evenementparcoursintegration.dto;
+
+import java.util.List;
+
+public class EvenementRappel {
+    private EvenementGenerique informationEvenement;
+    private List<String> destinataires;
+
+    public EvenementRappel() {
+
+    }
+
+    public EvenementGenerique getInformationEvenement() {
+        return informationEvenement;
+    }
+
+    public void setInformationEvenement(EvenementGenerique informationEvenement) {
+        this.informationEvenement = informationEvenement;
+    }
+
+    public List<String> getDestinataires() {
+        return destinataires;
+    }
+
+    public void setDestinataires(List<String> destinataires) {
+        this.destinataires = destinataires;
+    }
+}
