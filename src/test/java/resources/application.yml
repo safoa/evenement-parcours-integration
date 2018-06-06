@@ -1,0 +1,31 @@
+evenement-parcours-integration:
+  - nom: Point accueil
+    description:
+    type-declancheur: s
+    valeur-declancheur: 1
+    date-declancheur: date_embauche
+    type: Parcours intégration
+    cycle: false
+    type-recurrence:
+    valeur-recurrence:
+    nb_jour_avant_rappel: 7
+  - nom: Entretien etonnement
+    description: Rh fait un maila direction, manager proximité, commercial
+    type-declancheur: m
+    valeur-declancheur: 2
+    date-declancheur: date_embauche
+    type: Parcours intégration
+    cycle: false
+    type-recurrence:
+    valeur-recurrence:
+    nb_jour_avant_rappel: 7
+  - nom: Point fin de période d'éssai
+    description: Manager doit déterminer les objectifs en fonction du point de mission
+    type-declancheur: m
+    valeur-declancheur: 3
+    date-declancheur: date_embauche
+    type: Parcours intégration
+    cycle: false
+    type-recurrence:
+    valeur-recurrence:
+    nb_jour_avant_rappel: 7
