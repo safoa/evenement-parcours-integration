@@ -122,7 +122,7 @@ public class EvenementParcoursIntegrationService {
         List<EvenementParcoursIntegration> evenementParcoursIntegrationList =
                 yamlConfigEvenementParcoursIntegration.getEvenementParcoursIntegration();
         List<EvenementGenerique> evenementGeneriqueList =
-                evenementGeneriqueAdapter.getEvenementGeneriqueAfterDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+                evenementGeneriqueAdapter.getEvenementGenerique();
         Set<String> nomEvenementParcoursIntegration =
                 evenementParcoursIntegrationList.stream()
                         .map(EvenementParcoursIntegration::getNom)
@@ -136,7 +136,7 @@ public class EvenementParcoursIntegrationService {
     }
 
     /**
-     * Permet de récupérer l'ensemble des évènements generique dans le futur de chaque utilisateur
+     * Permet de récupérer l'ensemble des évènements generique de chaque utilisateur
      */
     public Map<String, List<EvenementGenerique>> recuperationEvenementsParcoursIntegrationPersonne() throws EvenementParcoursIntegrationException {
         List<EvenementPersonneParcoursIntegration> evenementPersonneParcoursIntegrationList = evenementPersonneParcoursIntegrationDao.getAllEvenementPersonneParcoursIntegration();
@@ -164,6 +164,9 @@ public class EvenementParcoursIntegrationService {
         return evenementsParcoursIntegrationPersonne;
     }
 
+    /**
+     * Permet de récupérer l'ensemble des évènements generiques pour lesquels il faut envoyer un rappel
+     */
     public List<EvenementGenerique> getEvenementsARappele()throws EvenementParcoursIntegrationException{
         List<EvenementParcoursIntegration> evenementParcoursIntegrationList = yamlConfigEvenementParcoursIntegration.getEvenementParcoursIntegration();
         Map<String, Integer> evenementParcoursIntegrationMap =
@@ -179,8 +182,16 @@ public class EvenementParcoursIntegrationService {
         ).collect(Collectors.toList());
     }
 
+    /**
+     * Renvoi la liste des evenements génériques d'une personne
+     * @param idPersonne identifiant de la personne
+     * @return liste des evenements de la personne
+     * @throws EvenementParcoursIntegrationException
+     */
     public List<EvenementGenerique> getListEvenementByIdPersonne(String idPersonne)throws EvenementParcoursIntegrationException {
-        return recuperationEvenementsParcoursIntegrationPersonne().get(idPersonne);
+        Map<String, List<EvenementGenerique>> evenementGeneriqueList = new HashMap<>();
+        evenementGeneriqueList = recuperationEvenementsParcoursIntegrationPersonne();
+        return evenementGeneriqueList.get(idPersonne);
     }
 
 }
