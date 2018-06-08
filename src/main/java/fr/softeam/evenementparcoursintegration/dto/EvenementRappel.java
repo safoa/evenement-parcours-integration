@@ -5,6 +5,7 @@ import java.util.List;
 public class EvenementRappel {
     private EvenementGenerique informationEvenement;
     private List<String> destinataires;
+    private String idPersonne;
 
     public EvenementRappel() {
 
@@ -24,5 +25,13 @@ public class EvenementRappel {
 
     public void setDestinataires(List<String> destinataires) {
         this.destinataires = destinataires;
+    }
+
+    public String getIdPersonne() {
+        return idPersonne;
+    }
+
+    public void setIdPersonne(String idPersonne) {
+        this.idPersonne = idPersonne;
     }
 }

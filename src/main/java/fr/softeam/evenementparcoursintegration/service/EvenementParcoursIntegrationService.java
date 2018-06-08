@@ -141,7 +141,7 @@ public class EvenementParcoursIntegrationService {
      */
     public Map<String, List<EvenementGenerique>> recuperationEvenementsParcoursIntegrationPersonne() throws EvenementParcoursIntegrationException {
         List<EvenementPersonneParcoursIntegration> evenementPersonneParcoursIntegrationList = evenementPersonneParcoursIntegrationDao.getAllEvenementPersonneParcoursIntegration();
-        Map<String, List<Integer>> test = evenementPersonneParcoursIntegrationList.stream().collect(
+        Map<String, List<Integer>> mapPersonneEvenement = evenementPersonneParcoursIntegrationList.stream().collect(
                 Collectors.groupingBy(EvenementPersonneParcoursIntegration::getIdPersonne,
                         Collectors.mapping(EvenementPersonneParcoursIntegration::getIdEvenement, Collectors.toList()))
         );
@@ -154,7 +154,7 @@ public class EvenementParcoursIntegrationService {
                         )
                 );
         Map<String, List<EvenementGenerique>> evenementsParcoursIntegrationPersonne = new HashMap<>();
-        for (Map.Entry<String, List<Integer>> entry : test.entrySet()){
+        for (Map.Entry<String, List<Integer>> entry : mapPersonneEvenement.entrySet()){
             evenementsParcoursIntegrationPersonne.put(entry.getKey(),new ArrayList<>());
             for (Integer idEvenement : entry.getValue()) {
                 if(mapEvenementGenerique.get(idEvenement) != null){
@@ -173,8 +173,14 @@ public class EvenementParcoursIntegrationService {
         Map<String, Integer> evenementParcoursIntegrationMap =
                 evenementParcoursIntegrationList.stream()
                 .collect(Collectors.toMap(EvenementParcoursIntegration::getNom,EvenementParcoursIntegration::getNbJourAvantRappel));
-
         List<EvenementGenerique> evenementGeneriqueList = recuperationEvenementsGeneriqueTypeParcoursIntegration();
+        List<EvenementPersonneParcoursIntegration> evenementPersonneParcoursIntegrationList =
+                evenementPersonneParcoursIntegrationDao.getAllEvenementPersonneParcoursIntegration();
+        //
+        Map<Integer, String> mapEvenementPersonne = evenementPersonneParcoursIntegrationList.stream().collect(
+                Collectors.toMap(EvenementPersonneParcoursIntegration::getIdEvenement,
+                        EvenementPersonneParcoursIntegration::getIdPersonne)
+        );
         List<EvenementGenerique> evenementGeneriqueARapeller = evenementGeneriqueList.stream().filter(
                 e -> (LocalDate.parse(
                         e.getDateEvenement(),
@@ -190,6 +196,7 @@ public class EvenementParcoursIntegrationService {
                EvenementRappel evenementRappel = new EvenementRappel();
                evenementRappel.setInformationEvenement(evenementGenerique);
                evenementRappel.setDestinataires(evenementParcoursIntegration.get().getDestinataireGroupe());
+               evenementRappel.setIdPersonne(mapEvenementPersonne.get(evenementGenerique.getIdEvenement()));
                listeResultat.add(evenementRappel);
            }
         }
@@ -205,8 +212,6 @@ public class EvenementParcoursIntegrationService {
     public List<EvenementGenerique> getListEvenementByIdPersonne(String idPersonne)throws EvenementParcoursIntegrationException {
         Map<String, List<EvenementGenerique>> evenementGeneriqueList = new HashMap<>();
         evenementGeneriqueList = recuperationEvenementsParcoursIntegrationPersonne();
-        List<EvenementParcoursIntegration> evenementParcoursIntegrationList =
-                yamlConfigEvenementParcoursIntegration.getEvenementParcoursIntegration();
         return evenementGeneriqueList.get(idPersonne);
     }
 

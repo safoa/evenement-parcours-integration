@@ -7,8 +7,6 @@ public class EvenementGenerique {
 
     private String description;
 
-    private String idAuteur;
-
     private String dateEvenement;
 
     private String dateValidation;
@@ -94,11 +92,4 @@ public class EvenementGenerique {
         this.typeRecurrence = typeRecurrence;
     }
 
-    public String getIdAuteur() {
-        return idAuteur;
-    }
-
-    public void setIdAuteur(String idAuteur) {
-        this.idAuteur = idAuteur;
-    }
 }

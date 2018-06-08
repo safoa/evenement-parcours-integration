@@ -86,8 +86,4 @@ public class EvenementParcoursIntegrationServiceTest {
         Assertions.assertThat(evenementParcoursIntegrationService.getEvenementsARappele().size()).isEqualTo(1);
     }
 
-    @Test
-    public void when_call_recuperationEvenementsParcoursIntegrationPersonne_then_evenements_de_chaque_personne(){
-
-    }
 }
