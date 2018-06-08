@@ -46,13 +46,13 @@ public class EvenementParcoursIntegrationRessource {
         return evenementParcoursIntegrationService.getListEvenementByIdPersonne(idPersonne);
     }
 
-    @PutMapping(path = "/evenement/{idPersonne}")
+    @PutMapping(path = "/evenement/{idEvenement}")
     public EvenementGenerique modifierEvenementGenerique(@PathVariable Integer idEvenement,
                                                           @RequestBody @Valid EvenementGenerique evenementGenerique) throws EvenementParcoursIntegrationException {
         return evenementParcoursIntegrationService.modifierEvenement(idEvenement,evenementGenerique);
     }
 
-    @DeleteMapping(path = "/evenement/{idPersonne}")
+    @DeleteMapping(path = "/evenement/{idEvenement}")
     public void supprimerEvenementGenerique(@PathVariable Integer idEvenement) throws EvenementParcoursIntegrationException {
         evenementParcoursIntegrationService.supprimerEvenement(idEvenement);
     }
