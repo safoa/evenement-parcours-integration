@@ -22,9 +22,6 @@ public class EvenementGeneriqueAdapter {
     @Value("${EVENEMENT_GENERIQUE_URI}")
     private String EVENEMENT_GENERIQUE_URI;
 
-    @Value("${CREATION_EVENEMENT_GENERIQUE_URI}")
-    private String CREATION_EVENEMENT_GENERIQUE_URI;
-
     /**
      * Ajouter un evenement générique
      *
@@ -37,7 +34,7 @@ public class EvenementGeneriqueAdapter {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<EvenementGenerique> entity = new HttpEntity<>(evenementGenerique, headers);
             EvenementGenerique responseEntity =
-                    restTemplate.postForObject(EVENEMENT_GENERIQUE_URI + CREATION_EVENEMENT_GENERIQUE_URI,
+                    restTemplate.postForObject(EVENEMENT_GENERIQUE_URI ,
                             entity,
                             EvenementGenerique.class);
             return responseEntity.getIdEvenement();
@@ -57,7 +54,7 @@ public class EvenementGeneriqueAdapter {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<?> entity = new HttpEntity<>("", headers);
             ResponseEntity<List<EvenementGenerique>> responseEntity =
-                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI + CREATION_EVENEMENT_GENERIQUE_URI,
+                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI ,
                             HttpMethod.GET,
                             entity,
                             new ParameterizedTypeReference<List<EvenementGenerique>>(){});
@@ -80,7 +77,7 @@ public class EvenementGeneriqueAdapter {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<?> entity = new HttpEntity<>("", headers);
             ResponseEntity<List<EvenementGenerique>> responseEntity =
-                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI + CREATION_EVENEMENT_GENERIQUE_URI+"/limite?limite="+date,
+                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI +"/limite?limite="+date,
                             HttpMethod.GET,
                             entity,
                             new ParameterizedTypeReference<List<EvenementGenerique>>(){});
@@ -102,11 +99,31 @@ public class EvenementGeneriqueAdapter {
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<EvenementGenerique> entity = new HttpEntity<>(evenementGenerique, headers);
             ResponseEntity<EvenementGenerique> responseEntity =
-                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI + CREATION_EVENEMENT_GENERIQUE_URI+"/"+idEvenement,
+                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI +"/"+idEvenement,
                             HttpMethod.PUT,
                             entity,
                             EvenementGenerique.class);
             return responseEntity.getBody();
+        }catch(HttpClientErrorException  exception){
+            throw new EvenementParcoursIntegrationException(exception.getResponseBodyAsString());
+        }
+    }
+
+    /**
+     * Supprimer un evenement générique
+     *
+     * @param idEvenement evenement générique à supprimer
+     */
+    public void supprimerEvenement(Integer idEvenement) throws EvenementParcoursIntegrationException {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<?> entity = new HttpEntity<>("", headers);
+            ResponseEntity<?> responseEntity =
+                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI +"/"+idEvenement,
+                            HttpMethod.DELETE,
+                            entity,
+                            ResponseEntity.class);
         }catch(HttpClientErrorException  exception){
             throw new EvenementParcoursIntegrationException(exception.getResponseBodyAsString());
         }

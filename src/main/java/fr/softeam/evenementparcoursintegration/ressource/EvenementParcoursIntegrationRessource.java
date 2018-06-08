@@ -47,8 +47,13 @@ public class EvenementParcoursIntegrationRessource {
     }
 
     @PutMapping(path = "/evenement/{idPersonne}")
-    public EvenementGenerique modifierEvenementGenertique(@PathVariable Integer idEvenement,
+    public EvenementGenerique modifierEvenementGenerique(@PathVariable Integer idEvenement,
                                                           @RequestBody @Valid EvenementGenerique evenementGenerique) throws EvenementParcoursIntegrationException {
         return evenementParcoursIntegrationService.modifierEvenement(idEvenement,evenementGenerique);
+    }
+
+    @DeleteMapping(path = "/evenement/{idPersonne}")
+    public void supprimerEvenementGenerique(@PathVariable Integer idEvenement) throws EvenementParcoursIntegrationException {
+        evenementParcoursIntegrationService.supprimerEvenement(idEvenement);
     }
 }

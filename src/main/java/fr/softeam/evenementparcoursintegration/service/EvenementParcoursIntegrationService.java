@@ -217,11 +217,20 @@ public class EvenementParcoursIntegrationService {
 
     /**
      * modifie un evenement générique
-     * @param idEvenement identifiant de la personne
+     * @param idEvenement identifiant de l'evenement
      * @return evenement générique modifié
      * @throws EvenementParcoursIntegrationException
      */
     public EvenementGenerique modifierEvenement(Integer idEvenement, EvenementGenerique evenementGenerique)throws EvenementParcoursIntegrationException {
         return evenementGeneriqueAdapter.modifierEvenement(idEvenement, evenementGenerique);
+    }
+
+    /**
+     * supprimer un evenement générique
+     * @param idEvenement identifiant de l'evenement
+     * @throws EvenementParcoursIntegrationException
+     */
+    public void supprimerEvenement(Integer idEvenement)throws EvenementParcoursIntegrationException {
+        evenementGeneriqueAdapter.supprimerEvenement(idEvenement);
     }
 }
