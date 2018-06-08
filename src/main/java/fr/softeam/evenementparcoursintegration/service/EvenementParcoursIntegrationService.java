@@ -215,4 +215,13 @@ public class EvenementParcoursIntegrationService {
         return evenementGeneriqueList.get(idPersonne);
     }
 
+    /**
+     * modifie un evenement générique
+     * @param idEvenement identifiant de la personne
+     * @return evenement générique modifié
+     * @throws EvenementParcoursIntegrationException
+     */
+    public EvenementGenerique modifierEvenement(Integer idEvenement, EvenementGenerique evenementGenerique)throws EvenementParcoursIntegrationException {
+        return evenementGeneriqueAdapter.modifierEvenement(idEvenement, evenementGenerique);
+    }
 }

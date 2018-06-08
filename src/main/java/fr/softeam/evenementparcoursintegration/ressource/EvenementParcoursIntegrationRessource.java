@@ -46,4 +46,9 @@ public class EvenementParcoursIntegrationRessource {
         return evenementParcoursIntegrationService.getListEvenementByIdPersonne(idPersonne);
     }
 
+    @PutMapping(path = "/evenement/{idPersonne}")
+    public EvenementGenerique modifierEvenementGenertique(@PathVariable Integer idEvenement,
+                                                          @RequestBody @Valid EvenementGenerique evenementGenerique) throws EvenementParcoursIntegrationException {
+        return evenementParcoursIntegrationService.modifierEvenement(idEvenement,evenementGenerique);
+    }
 }

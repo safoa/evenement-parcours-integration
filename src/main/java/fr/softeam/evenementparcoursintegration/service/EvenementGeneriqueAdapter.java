@@ -89,4 +89,26 @@ public class EvenementGeneriqueAdapter {
             throw new EvenementParcoursIntegrationException(exception.getResponseBodyAsString());
         }
     }
+
+    /**
+     * Modifier un evenement générique
+     *
+     * @param evenementGenerique evenement générique à ajouter en base
+     * @return identifiant de l'évènement générique
+     */
+    public EvenementGenerique modifierEvenement(Integer idEvenement,EvenementGenerique evenementGenerique) throws EvenementParcoursIntegrationException {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<EvenementGenerique> entity = new HttpEntity<>(evenementGenerique, headers);
+            ResponseEntity<EvenementGenerique> responseEntity =
+                    restTemplate.exchange(EVENEMENT_GENERIQUE_URI + CREATION_EVENEMENT_GENERIQUE_URI+"/"+idEvenement,
+                            HttpMethod.PUT,
+                            entity,
+                            EvenementGenerique.class);
+            return responseEntity.getBody();
+        }catch(HttpClientErrorException  exception){
+            throw new EvenementParcoursIntegrationException(exception.getResponseBodyAsString());
+        }
+    }
 }
