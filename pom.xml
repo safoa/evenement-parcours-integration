@@ -63,6 +63,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>evenement-parcours-integration</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
